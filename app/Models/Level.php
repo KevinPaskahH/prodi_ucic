@@ -12,4 +12,8 @@ class Level extends Model
     protected $fillable = [
         'name',
     ];
+    public function units()
+    {
+        return $this->hasMany(Unit::class);
+    }
 }

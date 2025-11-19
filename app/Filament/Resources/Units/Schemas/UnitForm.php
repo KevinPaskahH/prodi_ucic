@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\Units\Schemas;
 
-use Filament\Forms\Components\TextInput;
+use Filament\Forms;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 
 class UnitForm
 {
@@ -11,19 +13,18 @@ class UnitForm
     {
         return $schema
             ->components([
-                Forms\Components\Select::make('level_id')
-                    ->relationship('level', 'name')
+                Select::make('level_id')
                     ->label('Level')
+                    ->relationship('level', 'name')
                     ->required(),
 
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->label('Nama Unit')
-                    ->required()
-                    ->maxLength(150),
+                    ->required(),
 
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(150),
+                TextInput::make('slug')
+                    ->label('Slug')
+                    ->required(),
             ]);
     }
 }
