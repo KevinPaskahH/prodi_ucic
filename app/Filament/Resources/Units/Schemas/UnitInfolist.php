@@ -11,16 +11,9 @@ class UnitInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('level_id')
-                    ->numeric(),
-                TextEntry::make('name'),
+                TextEntry::make('level.name')->label('Level'),
+                TextEntry::make('name')->label('Nama Unit'),
                 TextEntry::make('slug'),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
             ]);
     }
 }

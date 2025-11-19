@@ -11,13 +11,19 @@ class UnitForm
     {
         return $schema
             ->components([
-                TextInput::make('level_id')
+                Forms\Components\Select::make('level_id')
+                    ->relationship('level', 'name')
+                    ->label('Level')
+                    ->required(),
+
+                Forms\Components\TextInput::make('name')
+                    ->label('Nama Unit')
                     ->required()
-                    ->numeric(),
-                TextInput::make('name')
-                    ->required(),
-                TextInput::make('slug')
-                    ->required(),
+                    ->maxLength(150),
+
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(150),
             ]);
     }
 }
