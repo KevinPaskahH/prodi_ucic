@@ -6,15 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+   
     public function up(): void
     {
       
         Schema::create('news', function (Blueprint $table) {
-            $table->id(); // BIGINT (PK, AUTO_INCREMENT)
-
+            $table->id(); 
+            
             // Relasi ke tabel lain
             $table->foreignId('level_id')->constrained('levels')->onDelete('cascade');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
@@ -22,25 +20,21 @@ return new class extends Migration
 
             // Informasi berita
             $table->string('title', 255);
-            $table->string('slug', 255)->unique(); // SEO-friendly URL
-            $table->text('excerpt')->nullable(); // ringkasan singkat
-            $table->longText('content'); // isi lengkap berita
-            $table->string('thumbnail', 255)->nullable(); // path gambar utama
+            $table->string('slug', 255)->unique(); 
+            $table->text('excerpt')->nullable(); 
+            $table->longText('content'); 
+            $table->string('thumbnail', 255)->nullable(); 
 
             // Status berita
             $table->enum('status', ['draft', 'menunggu', 'revisi', 'disetujui', 'ditolak'])
                   ->default('draft');
 
-            $table->dateTime('published_at')->nullable(); // tanggal tayang
-            $table->text('catatan_reviewer')->nullable(); // catatan dari reviewer
+            $table->dateTime('published_at')->nullable(); 
+            $table->text('catatan_reviewer')->nullable(); 
 
-            $table->timestamps(); // created_at dan updated_at otomatis
+            $table->timestamps(); 
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('news');

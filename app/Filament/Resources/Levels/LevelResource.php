@@ -18,7 +18,11 @@ class LevelResource extends Resource
 {
     protected static ?string $model = Level::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | \UnitEnum | null $navigationGroup = 'Berita';
+
+    protected static ?string $navigationLabel = 'Levels';
+
+    protected static string | \BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';
 
