@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\News\Schemas;
 
 use Filament\Schemas\Schema;
-use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -40,6 +39,11 @@ class NewsForm
                     ->afterStateUpdated(function ($state, callable $set) {
                         $set('slug', Str::slug($state));
                     }),
+
+                Select::make('category_id')
+                    ->relationship('category', 'type')
+                    ->label('Tipe Berita')
+                    ->required(),
 
                 TextInput::make('slug')
                     ->required()

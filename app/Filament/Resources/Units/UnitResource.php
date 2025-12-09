@@ -20,7 +20,7 @@ class UnitResource extends Resource
 {
     protected static ?string $model = Unit::class;
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Berita';
+    protected static string | \UnitEnum | null $navigationGroup = 'Unit Akademik';
 
     protected static ?string $navigationLabel = 'Units';
 

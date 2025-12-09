@@ -10,6 +10,7 @@ class News extends Model
         'level_id',
         'unit_id',
         'user_id',
+        'category_id',
         'title',
         'slug',
         'excerpt',
@@ -32,6 +33,11 @@ class News extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
 

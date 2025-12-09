@@ -18,7 +18,7 @@ class LevelResource extends Resource
 {
     protected static ?string $model = Level::class;
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Berita';
+    protected static string | \UnitEnum | null $navigationGroup = 'Unit Akademik';
 
     protected static ?string $navigationLabel = 'Levels';
 

@@ -18,7 +18,7 @@ class NewsResource extends Resource
 {
     protected static ?string $model = News::class;
 
-    protected static string | \UnitEnum | null $navigationGroup = 'Berita';
+    protected static string | \UnitEnum | null $navigationGroup = 'Home';
 
     protected static string | \BackedEnum | null $navigationIcon = Heroicon::OutlinedRectangleStack;
 

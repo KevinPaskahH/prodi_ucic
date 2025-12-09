@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('level_id')->constrained('levels')->onDelete('cascade');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
 
             // Informasi berita
             $table->string('title', 255);

@@ -2,14 +2,11 @@
 
 namespace App\Filament\Resources\News\Tables;
 
-use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Actions\EditAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\ViewAction;
 
 class NewsTable
 {
@@ -27,6 +24,10 @@ class NewsTable
                     ->limit(80)
                     ->wrap()
                     ->searchable()
+                    ->sortable(),
+                
+                TextColumn::make('category.type')
+                    ->label('Tipe Berita')
                     ->sortable(),
 
                 TextColumn::make('level.name')
