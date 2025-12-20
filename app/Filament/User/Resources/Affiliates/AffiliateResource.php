@@ -20,6 +20,8 @@ class AffiliateResource extends Resource
 {
     protected static ?string $model = Affiliate::class;
 
+    protected static string | \UnitEnum | null $navigationGroup = 'Home';
+
     protected static string|BackedEnum|null $navigationIcon =
         Heroicon::OutlinedRectangleStack;
 
@@ -28,11 +30,17 @@ class AffiliateResource extends Resource
     /**
      * 🔒 USER PANEL:
      * User hanya bisa melihat affiliatenya sendiri
+     * menggunakan users.user_id (bukan id)
      */
     public static function getEloquentQuery(): Builder
     {
+        $user = Filament::auth()->user();
+
         return parent::getEloquentQuery()
-            ->where('user_id', Filament::auth()->id());
+            ->when(
+                $user,
+                fn (Builder $query) => $query->where('user_id', $user->user_id)
+            );
     }
 
     /**

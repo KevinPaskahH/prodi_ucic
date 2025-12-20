@@ -20,6 +20,8 @@ class LuaranResource extends Resource
 {
     protected static ?string $model = Luaran::class;
 
+    protected static string | \UnitEnum | null $navigationGroup = 'Kemahasiswaan';
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';

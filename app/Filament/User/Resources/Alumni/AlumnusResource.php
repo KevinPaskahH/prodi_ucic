@@ -22,19 +22,25 @@ class AlumnusResource extends Resource
 
     protected static string | \UnitEnum | null $navigationGroup = 'Kemahasiswaan';
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon =
+        Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     /**
      * 🔒 USER PANEL:
-     * User hanya bisa melihat affiliatenya sendiri
+     * User hanya bisa melihat alumninya sendiri
+     * menggunakan users.user_id (string), bukan id
      */
-
     public static function getEloquentQuery(): Builder
     {
+        $user = Filament::auth()->user();
+
         return parent::getEloquentQuery()
-            ->where('user_id', Filament::auth()->id());
+            ->when(
+                $user,
+                fn (Builder $query) => $query->where('user_id', $user->user_id)
+            );
     }
 
     /**
@@ -45,24 +51,31 @@ class AlumnusResource extends Resource
         return AlumnusForm::configure($schema);
     }
 
+    /**
+     * 📊 TABLE
+     */
     public static function table(Table $table): Table
     {
         return AlumniTable::configure($table);
     }
 
+    /**
+     * 🔗 RELATIONS
+     */
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
+    /**
+     * 📄 PAGES
+     */
     public static function getPages(): array
     {
         return [
-            'index' => ListAlumni::route('/'),
+            'index'  => ListAlumni::route('/'),
             'create' => CreateAlumnus::route('/create'),
-            'edit' => EditAlumnus::route('/{record}/edit'),
+            'edit'   => EditAlumnus::route('/{record}/edit'),
         ];
     }
 }

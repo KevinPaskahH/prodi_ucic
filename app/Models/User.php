@@ -18,6 +18,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'level_id',
+        'unit_id',
         'user_id',
         'name',
         'email',
@@ -26,6 +28,18 @@ class User extends Authenticatable
         'password',
         'role', // ✅ pastikan ini ada
     ];
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+    
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,7 +60,6 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
         ];
     }
 
