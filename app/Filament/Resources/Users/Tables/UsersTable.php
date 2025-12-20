@@ -14,6 +14,12 @@ class UsersTable
     {
         return $table
             ->columns([
+
+                TextColumn::make('user_id')
+                    ->label('ID User')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('name')
                     ->label('Username')
                     ->searchable()
@@ -40,11 +46,6 @@ class UsersTable
                         'user'  => 'primary',
                         default => 'secondary',
                     }),
-
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime('d M Y')
-                    ->sortable(),
             ])
             ->filters([
                 //

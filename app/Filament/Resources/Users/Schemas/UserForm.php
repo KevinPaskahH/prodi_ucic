@@ -23,6 +23,10 @@ class UserForm
                     ->label('Unit')
                     ->required(),
 
+                TextInput::make('user_id')
+                    ->label('ID User')
+                    ->required(),
+
                 TextInput::make('name')
                     ->label('Username')
                     ->required(),
