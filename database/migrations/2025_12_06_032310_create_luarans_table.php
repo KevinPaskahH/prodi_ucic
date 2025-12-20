@@ -17,14 +17,12 @@ return new class extends Migration
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
 
             $table->string('name', 255);
-            $table->enum('luaran', ['buku', 'jurnal', 'haki'])
-                  ->default('akademik');
+            $table->enum('luaran', ['buku', 'jurnal', 'haki']);
                   
-            $table->longText('juara');
+            $table->longText('judul');
             $table->string('foto', 255)->nullable(); 
 
             $table->dateTime('tanggal')->nullable();
-            $table->timestamps();
             $table->timestamps();
         });
     }

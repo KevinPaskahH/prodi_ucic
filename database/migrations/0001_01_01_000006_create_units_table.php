@@ -13,14 +13,13 @@ return new class extends Migration
     {
         
     Schema::create('units', function (Blueprint $table) {
-    $table->id(); 
-    $table->unsignedBigInteger('level_id'); 
-    $table->string('name', 150); 
-    $table->string('slug', 150); 
-    $table->timestamps(); 
-
-    // Relasi FK
-    $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
+    $table->id();
+    $table->foreignId('level_id')
+          ->constrained('levels')
+          ->cascadeOnDelete();
+    $table->string('name', 150);
+    $table->string('slug', 150);
+    $table->timestamps();
 });
 
         
