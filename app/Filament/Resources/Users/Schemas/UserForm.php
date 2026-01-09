@@ -32,7 +32,7 @@ class UserForm
                     ->required(),
                 
                 TextInput::make('email')
-                    ->label('Nama Alumni')
+                    ->label('Email')
                     ->required(),
                 
                 TextInput::make('password')

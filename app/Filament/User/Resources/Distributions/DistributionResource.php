@@ -35,7 +35,6 @@ class DistributionResource extends Resource
         return parent::getEloquentQuery()
             ->where('user_id', Filament::auth()->id());
     }
-
     public static function form(Schema $schema): Schema
     {
         return DistributionForm::configure($schema);

@@ -32,15 +32,10 @@ class AffiliateResource extends Resource
      * User hanya bisa melihat affiliatenya sendiri
      * menggunakan users.user_id (bukan id)
      */
-    public static function getEloquentQuery(): Builder
+     public static function getEloquentQuery(): Builder
     {
-        $user = Filament::auth()->user();
-
         return parent::getEloquentQuery()
-            ->when(
-                $user,
-                fn (Builder $query) => $query->where('user_id', $user->user_id)
-            );
+            ->where('user_id', Filament::auth()->id());
     }
 
     /**

@@ -9,6 +9,7 @@ class Alumnus extends Model
     protected $fillable = [
         'level_id',
         'unit_id',
+        'user_id'.
         'name',
         'graduate',
         'ipk',
@@ -24,4 +25,10 @@ class Alumnus extends Model
     {
         return $this->belongsTo(Unit::class);
     }
+
+        public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
+

@@ -11,6 +11,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Illuminate\Database\Eloquent\Builder;
+
 class PrestasiForm
 {
     public static function configure(Schema $schema): Schema
@@ -22,17 +24,33 @@ class PrestasiForm
                  * user TIDAK bisa pilih user lain
                  */
                 Hidden::make('user_id')
-                    ->default(fn () => Filament::auth()->id())
+                    ->default(fn () => Filament::auth()->user()?->user_id)
                     ->required()
                     ->dehydrated(),
 
                 Select::make('level_id')
-                    ->relationship('level', 'name')
+                    ->relationship(
+                        name: 'level',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) =>
+                            $query->where(
+                                'id',
+                                Filament::auth()->user()?->level_id
+                            )
+                    )
                     ->label('Level')
                     ->required(),
 
                 Select::make('unit_id')
-                    ->relationship('unit', 'name')
+                    ->relationship(
+                        name: 'unit',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) =>
+                            $query->where(
+                                'id',
+                                Filament::auth()->user()?->unit_id
+                            )
+                        )
                     ->label('Unit')
                     ->required(),
                 

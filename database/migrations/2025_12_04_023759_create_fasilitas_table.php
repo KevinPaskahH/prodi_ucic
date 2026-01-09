@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('level_id')->constrained('levels')->onDelete('cascade');
             $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             
             $table->string('name', 255);
             $table->string('foto', 255)->nullable();

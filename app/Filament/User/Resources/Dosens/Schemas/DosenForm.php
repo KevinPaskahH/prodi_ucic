@@ -8,6 +8,7 @@ use Filament\Schemas\Schema;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Illuminate\Database\Eloquent\Builder;
 
 class DosenForm
 {
@@ -20,17 +21,33 @@ class DosenForm
                  * user TIDAK bisa pilih user lain
                  */
                 Hidden::make('user_id')
-                    ->default(fn () => Filament::auth()->id())
+                    ->default(fn () => Filament::auth()->user()?->user_id)
                     ->required()
                     ->dehydrated(),
-                    
+
                 Select::make('level_id')
-                    ->relationship('level', 'name')
+                    ->relationship(
+                        name: 'level',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) =>
+                            $query->where(
+                                'id',
+                                Filament::auth()->user()?->level_id
+                            )
+                    )
                     ->label('Level')
                     ->required(),
 
                 Select::make('unit_id')
-                    ->relationship('unit', 'name')
+                    ->relationship(
+                        name: 'unit',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) =>
+                            $query->where(
+                                'id',
+                                Filament::auth()->user()?->unit_id
+                            )
+                        )
                     ->label('Unit')
                     ->required(),
                 

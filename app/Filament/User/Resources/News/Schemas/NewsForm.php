@@ -15,8 +15,6 @@ use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 
-
-
 class NewsForm
 {
     public static function configure(Schema $schema): Schema

@@ -9,6 +9,7 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\DateTimePicker;
+use Illuminate\Database\Eloquent\Builder;
 
 class PurposeForm
 {
@@ -21,22 +22,46 @@ class PurposeForm
                  * user TIDAK bisa pilih user lain
                  */
                 Hidden::make('user_id')
-                    ->default(fn () => Filament::auth()->id())
+                    ->default(fn () => Filament::auth()->user()?->user_id)
                     ->required()
                     ->dehydrated(),
-                    
+
                 Select::make('level_id')
-                    ->relationship('level', 'name')
+                    ->relationship(
+                        name: 'level',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) =>
+                            $query->where(
+                                'id',
+                                Filament::auth()->user()?->level_id
+                            )
+                    )
                     ->label('Level')
                     ->required(),
 
                 Select::make('unit_id')
-                    ->relationship('unit', 'name')
+                    ->relationship(
+                        name: 'unit',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) =>
+                            $query->where(
+                                'id',
+                                Filament::auth()->user()?->unit_id
+                            )
+                        )
                     ->label('Unit')
                     ->required(),
 
                 Select::make('user_id')
-                    ->relationship('user', 'name')
+                    ->relationship(
+                        name: 'user',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn (Builder $query) =>
+                            $query->where(
+                                'user_id',
+                                Filament::auth()->user()?->user_id
+                            )
+                    )
                     ->label('Penulis')
                     ->required(),
                 

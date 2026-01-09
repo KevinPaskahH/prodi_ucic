@@ -9,6 +9,7 @@ class Speech extends Model
     protected $fillable = [
         'level_id',
         'unit_id',
+        'user_id',
         'foto',
         'sambutan',
     ];
@@ -20,5 +21,10 @@ class Speech extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+        public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -9,6 +9,7 @@ class Dosen extends Model
     protected $fillable = [
         'level_id',
         'unit_id',
+        'user_id',
         'nidn',
         'name',
         'jabatan',
@@ -24,5 +25,9 @@ class Dosen extends Model
     {
         return $this->belongsTo(Unit::class);
     }
-
+    
+        public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

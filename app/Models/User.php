@@ -23,8 +23,6 @@ class User extends Authenticatable
         'user_id',
         'name',
         'email',
-        'level_id',
-        'unit_id',
         'password',
         'role', // ✅ pastikan ini ada
     ];

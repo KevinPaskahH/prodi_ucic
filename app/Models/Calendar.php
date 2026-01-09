@@ -8,6 +8,7 @@ class Calendar extends Model
 {
     protected $fillable = [
         'level_id',
+        'user_id',
         'unit_id',
         'foto',
     ];
@@ -20,5 +21,10 @@ class Calendar extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+        public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

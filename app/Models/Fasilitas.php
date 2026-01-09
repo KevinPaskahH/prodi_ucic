@@ -9,6 +9,7 @@ class Fasilitas extends Model
     protected $fillable = [
         'level_id',
         'unit_id',
+        'user_id',
         'name',
         'foto',
         'deskripsi',
@@ -22,5 +23,10 @@ class Fasilitas extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+        public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

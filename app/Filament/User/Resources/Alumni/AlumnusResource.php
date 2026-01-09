@@ -34,13 +34,8 @@ class AlumnusResource extends Resource
      */
     public static function getEloquentQuery(): Builder
     {
-        $user = Filament::auth()->user();
-
         return parent::getEloquentQuery()
-            ->when(
-                $user,
-                fn (Builder $query) => $query->where('user_id', $user->user_id)
-            );
+            ->where('user_id', Filament::auth()->id());
     }
 
     /**
