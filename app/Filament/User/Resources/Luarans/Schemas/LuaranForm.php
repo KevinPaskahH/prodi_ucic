@@ -11,6 +11,9 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\DateTimePicker;
 use Illuminate\Database\Eloquent\Builder;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Str;
 
 class LuaranForm
 {
@@ -76,6 +79,29 @@ class LuaranForm
                     ->label('Foto')
                     ->directory('luaran-foto')
                     ->image()
+                    ->acceptedFileTypes([
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                    ])
+                    ->saveUploadedFileUsing(function ($file) {
+                        $manager = new ImageManager(new Driver());
+
+                        $image = $manager
+                            ->read($file)
+                            ->scaleDown(width: 800); // ideal foto profil
+
+                        $filename = Str::uuid() . '.webp';
+                        $path = storage_path(
+                            'app/public/luaran-foto/' . $filename
+                        );
+
+                        $image
+                            ->toWebp(80) // jernih + ringan
+                            ->save($path);
+
+                        return 'luaran-foto/' . $filename;
+                    })
                     ->imagePreviewHeight('150')
                     ->nullable(),
 

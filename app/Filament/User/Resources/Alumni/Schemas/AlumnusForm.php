@@ -9,6 +9,9 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Str;
 
 class AlumnusForm
 {
@@ -69,6 +72,29 @@ class AlumnusForm
                     ->label('Foto Alumni')
                     ->directory('Alumni-foto')
                     ->image()
+                    ->acceptedFileTypes([
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                    ])
+                    ->saveUploadedFileUsing(function ($file) {
+                        $manager = new ImageManager(new Driver());
+
+                        $image = $manager
+                            ->read($file)
+                            ->scaleDown(width: 800); // ideal foto profil
+
+                        $filename = Str::uuid() . '.webp';
+                        $path = storage_path(
+                            'app/public/Alumni-foto/' . $filename
+                        );
+
+                        $image
+                            ->toWebp(80) // jernih + ringan
+                            ->save($path);
+
+                        return 'Alumni-foto/' . $filename;
+                    })
                     ->required(),
             ]);
     }

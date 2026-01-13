@@ -10,6 +10,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\DateTimePicker;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Str;
 
 class PromotionForm
@@ -56,8 +58,31 @@ class PromotionForm
 
                 FileUpload::make('thumbnail')
                     ->label('Thumbnail')
-                    ->directory('news-thumbnails')
+                    ->directory('promotion-thumbnails')
                     ->image()
+                    ->acceptedFileTypes([
+                        'image/jpeg',
+                        'image/png',
+                        'image/webp',
+                    ])
+                    ->saveUploadedFileUsing(function ($file) {
+                        $manager = new ImageManager(new Driver());
+
+                        $image = $manager
+                            ->read($file)
+                            ->scaleDown(width: 800); // ideal foto profil
+
+                        $filename = Str::uuid() . '.webp';
+                        $path = storage_path(
+                            'app/public/promotion-foto/' . $filename
+                        );
+
+                        $image
+                            ->toWebp(80) // jernih + ringan
+                            ->save($path);
+
+                        return 'promotion-foto/' . $filename;
+                    })
                     ->required(),
 
                 Select::make('status')
